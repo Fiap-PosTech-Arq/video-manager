@@ -16,6 +16,4 @@ public class VideoController {
     public String downloadFramesById(@PathVariable("id") String videoId) {
         return "seu-video.zip";
     }
-
-
 }
