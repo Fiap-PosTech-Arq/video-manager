@@ -27,7 +27,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Autobuild
-        uses: github/codeql-action/autobuild@v2
+        uses: github/codeql-action/autobuild@v3
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
