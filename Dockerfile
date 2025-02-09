@@ -7,6 +7,9 @@ COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
 COPY src ./src
 
+# Garante que o mvnw seja executável
+RUN chmod +x mvnw
+
 # Constrói a aplicação
 RUN ./mvnw clean package -DskipTests
 
