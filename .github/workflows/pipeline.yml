@@ -56,7 +56,7 @@ jobs:
           AWS_ACCOUNT_ID: 990374739777
         run: |
           # Build the Docker Compose images (only spring-boot-app image will be built)
-          docker-compose -f docker-compose.yml build spring-boot-app
+          docker compose -f docker-compose.yml build spring-boot-app
 
           # Tag the image with the ECR repository
           docker tag video-manager:latest $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
