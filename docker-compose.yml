@@ -12,6 +12,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: video-manager:latest
     container_name: video-manager
     ports:
       - "8080:8080"
