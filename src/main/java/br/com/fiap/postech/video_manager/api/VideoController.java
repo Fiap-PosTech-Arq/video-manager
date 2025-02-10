@@ -8,7 +8,6 @@ import br.com.fiap.postech.video_manager.domain.entities.VideoUploadRequest;
 import br.com.fiap.postech.video_manager.domain.usecases.FindUploadUseCase;
 import br.com.fiap.postech.video_manager.domain.usecases.UploadFileUseCase;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
