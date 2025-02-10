@@ -2,40 +2,48 @@ package br.com.fiap.postech.video_manager.infra.repositories.entities;
 
 
 import br.com.fiap.postech.video_manager.domain.entities.Status;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
 
 
 @Getter
 @Setter
-@Document(collection = "uploads")
+@Entity
+@Table(name = "uploads")
 public class UploadEntity {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Indexed
-    @Field("email")
+    @Column(name = "email")
     private String email;
 
-    @Field("create_at")
+    @Column(name = "create_at")
     private LocalDateTime createAt;
 
-    @Field("update_at")
+    @Column(name = "update_at")
     private LocalDateTime updateAt;
 
-    @Field("file_in_name")
+    @Column(name = "file_in_name")
     private String fileInName;
 
-    @Field("file_out_name")
+    @Column(name = "file_out_name")
     private String fileOutName;
 
-    @Field("status")
+    @Column(name = "status")
     private Status status;
+
+    @PrePersist
+    public void setCreateDate() {
+        this.createAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void setUpDate() {
+        this.updateAt = LocalDateTime.now();
+    }
 }
