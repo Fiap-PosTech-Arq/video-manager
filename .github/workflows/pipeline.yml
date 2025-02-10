@@ -49,12 +49,17 @@ jobs:
           aws ecr describe-repositories --repository-names video-manager-application || \
           aws ecr create-repository --repository-name video-manager-application
 
-      - name: Build and push Docker image
+      - name: Build and push Docker image using Docker Compose
         env:
           ECR_REPOSITORY: video-manager-application
           IMAGE_TAG: ${{ github.sha }}
           AWS_ACCOUNT_ID: 990374739777
         run: |
-          docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
-          docker tag $ECR_REPOSITORY:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
+          # Build the Docker Compose images (only spring-boot-app image will be built)
+          docker-compose -f docker-compose.yml build spring-boot-app
+
+          # Tag the image with the ECR repository
+          docker tag video-manager:latest $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
+
+          # Push the image to ECR
           docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
