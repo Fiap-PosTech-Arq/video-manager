@@ -1,0 +1,9 @@
+aws:
+  s3:
+    bucketName: {BUCKET_NAME:videos-manager-to-process}
+    accessKey: {AWS_ACCESS_KEY:aaaaaaaaaaa}
+    secretKey: {AWS_SECRET_KEY:1111111111}
+  sqs:
+    queue:
+      url: https://sqs.us-east-1.amazonaws.com/326232041794/test-console
+  region: us-east-1

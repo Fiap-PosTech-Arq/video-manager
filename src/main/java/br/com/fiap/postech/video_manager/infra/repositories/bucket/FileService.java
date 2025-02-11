@@ -34,7 +34,7 @@ public class FileService implements FileServicePortOut {
                     .key(file.getFileName().toString())
                     .contentType(Files.probeContentType(file))
                     .build();
-
+          log.info("Enviando arquivo para o bucket: {}", bucketName);
             s3Client.putObject(request, RequestBody.fromFile(file));
         }catch (IOException e) {
             log.error("Erro ao enviar o arquivo para o S3: {}", e.getMessage());
