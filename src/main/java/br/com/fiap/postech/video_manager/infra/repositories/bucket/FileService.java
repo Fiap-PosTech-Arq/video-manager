@@ -4,9 +4,13 @@ import br.com.fiap.postech.video_manager.domain.ports.FileServicePortOut;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.S3Object;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -39,5 +43,17 @@ public class FileService implements FileServicePortOut {
         }catch (IOException e) {
             log.error("Erro ao enviar o arquivo para o S3: {}", e.getMessage());
         }
+    }
+
+
+    public byte[] getFileFromS3(String fileName) {
+        GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                .bucket(bucketName)
+                .key(fileName)
+                .build();
+
+        ResponseBytes<GetObjectResponse> objectBytes = s3Client.getObjectAsBytes(getObjectRequest);
+
+        return objectBytes.asByteArray();
     }
 }

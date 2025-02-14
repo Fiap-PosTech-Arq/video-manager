@@ -36,9 +36,10 @@ public class UploadFileUseCase {
         var uploadModelFromDB = repository.save(uploadModel);
 
         try {
-            var tempFile = Files.createTempFile(uploadModelFromDB.getId()+"-", multipartFile.getOriginalFilename());
+            var tempFile = Files.createTempFile(null, multipartFile.getOriginalFilename());
             Files.copy(multipartFile.getInputStream(), tempFile, StandardCopyOption.REPLACE_EXISTING);
             fileService.upload(tempFile);
+            uploadModel.setFileInName(tempFile.getFileName().toString());
 
             Files.delete(tempFile);
         }catch (IOException e) {
